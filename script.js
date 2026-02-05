@@ -194,7 +194,8 @@ const normalizeTicketUrl = (value) => {
     return '';
   }
   const lowered = trimmed.toLowerCase();
-  if (lowered === 'none' || lowered === 'n/a' || lowered === 'na' || lowered === 'no' || lowered === 'tba') {
+  const canonical = lowered.replace(/[^a-z0-9]/g, '');
+  if (canonical === 'none' || canonical === 'na' || canonical === 'no' || canonical === 'tba' || canonical === 'notickets') {
     return '';
   }
   return trimmed;
