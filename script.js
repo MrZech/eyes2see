@@ -185,6 +185,21 @@ const getField = (row, keys) => {
   return '';
 };
 
+const normalizeTicketUrl = (value) => {
+  if (!value) {
+    return '';
+  }
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return '';
+  }
+  const lowered = trimmed.toLowerCase();
+  if (lowered === 'none' || lowered === 'n/a' || lowered === 'na' || lowered === 'no' || lowered === 'tba') {
+    return '';
+  }
+  return trimmed;
+};
+
 const renderGigs = (gigs) => {
   if (!gigList || !gigStatus) {
     return;
@@ -293,7 +308,9 @@ const fetchGigs = async () => {
         const time = getField(row, ['time', 'doors', 'start']);
         const venue = getField(row, ['venue', 'location', 'spot']);
         const city = getField(row, ['city', 'town']);
-        const ticketUrl = getField(row, ['ticket_url', 'tickets', 'ticket link', 'url', 'link']);
+        const ticketUrl = normalizeTicketUrl(
+          getField(row, ['ticket_url', 'tickets', 'ticket link', 'url', 'link'])
+        );
         const notes = getField(row, ['notes', 'details', 'info']);
 
         return {
