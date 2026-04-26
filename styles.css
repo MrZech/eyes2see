@@ -420,22 +420,33 @@ main {
 
 @media (max-width: 520px) {
   .music-card {
-    align-items: start;
     gap: 12px;
     padding: 12px;
   }
 
   .music-cover {
-    width: 76px;
-    flex-basis: 76px;
+    width: min(100%, 220px);
+    flex-basis: auto;
+    border-radius: 16px;
   }
 
   .music-card h3 {
-    font-size: 0.94rem;
+    font-size: 1rem;
   }
 
   .music-card-meta {
-    font-size: 0.76rem;
+    font-size: 0.78rem;
+  }
+
+  .music-platforms {
+    gap: 8px;
+  }
+
+  .music-platforms a,
+  .music-platforms span {
+    min-height: 30px;
+    padding: 6px 9px;
+    font-size: 0.58rem;
   }
 }
 
@@ -654,18 +665,32 @@ main {
     display: none;
   }
 
+  .site-header {
+    backdrop-filter: blur(14px);
+  }
+
   .nav {
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
+    padding: 14px 18px;
   }
 
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px 14px;
+    width: 100%;
+  }
+
+  .nav a {
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
   }
 
   .hero {
-    padding-top: 80px;
+    padding: 72px 18px 56px;
+    gap: 24px;
+    grid-template-columns: 1fr;
   }
 
   .hero-content {
@@ -675,9 +700,169 @@ main {
   .hero-sub {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 22px;
   }
 
   .hero-actions {
     justify-content: center;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .hero-art {
+    min-height: 220px;
+    order: -1;
+  }
+
+  .halo {
+    inset: 26px;
+  }
+
+  .grid {
+    background-size: 28px 28px;
+  }
+
+  .stats,
+  .gigs-wrap,
+  .music-wrap,
+  .member-grid,
+  .contact-grid {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+
+  .stat-card,
+  .gig-card,
+  .member-card,
+  .contact-card {
+    border-radius: 20px;
+  }
+
+  .section-head {
+    margin-bottom: 28px;
+    padding: 0 18px;
+  }
+
+  .section-head h2 {
+    margin-bottom: 8px;
+  }
+
+  .music-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    gap: 14px;
+    border-radius: 20px;
+  }
+
+  .music-card-copy {
+    width: 100%;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .music-card-header {
+    gap: 6px;
+  }
+
+  .music-card-meta {
+    max-width: 28ch;
+    margin: 0 auto;
+  }
+
+  .music-cover {
+    width: min(100%, 260px);
+    flex: 0 0 auto;
+    border-radius: 22px;
+  }
+
+  .music-platforms {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .member-grid,
+  .contact-grid,
+  .gig-list {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .member-card,
+  .contact-card {
+    padding: 22px 18px 24px;
+  }
+
+  .contact-card,
+  .gig-card {
+    padding: 20px 18px;
+  }
+
+  .site-footer {
+    padding: 28px 18px 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    font-size: 1.25rem;
+    gap: 10px;
+  }
+
+  .brand img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 18vw, 4rem);
+  }
+
+  .eyebrow {
+    letter-spacing: 0.24em;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .music-card {
+    gap: 10px;
+  }
+
+  .music-cover {
+    width: min(100%, 200px);
+    flex-basis: auto;
+  }
+
+  .music-card-copy {
+    gap: 6px;
+  }
+
+  .music-card-type {
+    font-size: 0.62rem;
+  }
+
+  .music-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .music-card-meta {
+    font-size: 0.72rem;
+  }
+
+  .music-platforms {
+    gap: 5px;
   }
 }
