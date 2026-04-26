@@ -60,6 +60,23 @@ window.addEventListener('resize', handleScroll);
 const gigsSection = document.getElementById('gigs');
 const gigList = document.getElementById('gigList');
 const gigStatus = document.getElementById('gigStatus');
+const musicGrid = document.getElementById('musicGrid');
+
+// Replace these placeholder links and covers with the band's real releases.
+const musicReleases = [
+  {
+    title: 'ABANDONED IN THE MEADOWLAND',
+    type: 'EP · Apr 15, 2026',
+    description: '5 tracks',
+    cover: 'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022c5249d0f1df8efd2b5bbba0',
+    platforms: [
+      { label: 'Spotify', url: 'https://open.spotify.com/album/5y6lmRYrp4H41oJ0Pi6orB?si=rY9F2eTMTuWtwIvdE3beog' },
+      { label: 'Amazon Music', url: 'https://music.amazon.com/albums/B0GY3MS9X1' },
+      { label: 'Apple Music', url: 'https://music.apple.com/us/artist/eyes2see/1895109117' },
+      { label: 'YouTube Music', url: 'https://music.youtube.com/playlist?list=OLAK5uy_nywOu0Ky-i0BjqZxDKLWwEPkRisa3s3oY' },
+    ],
+  },
+];
 
 const parseCsv = (text) => {
   const rows = [];
@@ -113,6 +130,79 @@ const parseCsv = (text) => {
 };
 
 const normalizeKey = (value) => value.trim().toLowerCase();
+
+const isUsableUrl = (value) => typeof value === 'string' && /^https?:\/\//i.test(value.trim());
+
+const renderMusic = () => {
+  if (!musicGrid) {
+    return;
+  }
+
+  musicGrid.innerHTML = '';
+
+  musicReleases.forEach((release) => {
+    const card = document.createElement('article');
+    card.className = 'music-card reveal';
+
+    const cover = document.createElement('div');
+    cover.className = 'music-cover';
+    const coverImage = document.createElement('img');
+    coverImage.className = 'music-cover-image';
+    coverImage.src = release.cover || '';
+    coverImage.alt = release.title ? `${release.title} cover art` : 'Release cover art';
+    cover.appendChild(coverImage);
+
+    const copy = document.createElement('div');
+    copy.className = 'music-card-copy';
+
+    const header = document.createElement('div');
+    header.className = 'music-card-header';
+
+    const type = document.createElement('span');
+    type.className = 'music-card-type';
+    type.textContent = release.type || 'Release';
+
+    const title = document.createElement('h3');
+    title.textContent = release.title || 'Untitled Release';
+
+    header.append(type, title);
+
+    const description = document.createElement('p');
+    description.className = 'music-card-meta';
+    description.textContent = release.description || '';
+
+    const platforms = document.createElement('div');
+    platforms.className = 'music-platforms';
+
+    const links = Array.isArray(release.platforms) ? release.platforms : [];
+    const usableLinks = links.filter((platform) => isUsableUrl(platform.url));
+
+    if (usableLinks.length === 0) {
+      const empty = document.createElement('span');
+      empty.textContent = 'Platform links coming soon';
+      platforms.appendChild(empty);
+    } else {
+      usableLinks.forEach((platform) => {
+        const link = document.createElement('a');
+        link.href = platform.url.trim();
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        link.textContent = platform.label;
+        platforms.appendChild(link);
+      });
+    }
+
+    copy.append(header);
+    if (description.textContent) {
+      copy.append(description);
+    }
+    copy.append(platforms);
+    card.append(cover, copy);
+
+    musicGrid.appendChild(card);
+    observeRevealElement(card);
+  });
+};
 
 const parseIsoDate = (value) => {
   if (!value) {
@@ -367,3 +457,4 @@ const fetchGigs = async () => {
 };
 
 fetchGigs();
+renderMusic();
